@@ -51,7 +51,7 @@ def run_backtester(account_balance_start, leverage, order_size,  start, end, TIM
         x = client.futures_ticker()  # [0]
         for y in x:
             symbol.append(y['symbol'])
-        symbol = [x for x in symbol if 'USDT' in x]
+        symbol = [x for x in symbol if 'BUSD' in x]
         symbol = [x for x in symbol if not '_' in x]
     y = client.futures_exchange_info()['symbols']
     coin_info = []

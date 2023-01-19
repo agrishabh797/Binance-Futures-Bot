@@ -18,7 +18,7 @@ if __name__ == "__main__":
     x = client.futures_ticker()  # [0]
     for y in x:
         valid_symbols.append(y['symbol'])
-    valid_symbols = [x for x in valid_symbols if 'USDT' in x]
+    valid_symbols = [x for x in valid_symbols if 'BUSD' in x]
     valid_symbols = [x for x in valid_symbols if not '_' in x]
 
     def go_to_github():

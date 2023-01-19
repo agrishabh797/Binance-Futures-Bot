@@ -108,7 +108,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
     AccountBalance = 0
     y = client.futures_account_balance()
     for x in y:
-        if x['asset'] == 'USDT':
+        if x['asset'] == 'BUSD':
             AccountBalance = float(x['balance'])
             break
     print("Start Balance:", AccountBalance)
@@ -120,7 +120,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
     startup_account_balance = 0
     account_balance_info = client.futures_account_balance()
     for x in account_balance_info:
-        if x['asset'] == 'USDT':
+        if x['asset'] == 'BUSD':
             account_balance = float(x['balance'])
             startup_account_balance = float(x['balance'])
             break
@@ -128,6 +128,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
     data_thread.start()
     while True:
         try:
+            # print("new_candle_flag:", new_candle_flag)
             if new_candle_flag:
                 get_new_trades = True
                 for Bot in Bots:
@@ -154,7 +155,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
                 account_balance = 0
                 account_balance_info = client.futures_account_balance()
                 for item in account_balance_info:
-                    if item['asset'] == 'USDT':
+                    if item['asset'] == 'BUSD':
                         account_balance = float(item['balance'])
                         break
                 [index, [trade_direction, stop_loss, take_profit]] = new_trades.pop(0) ## decompose trade into variables for use
@@ -267,7 +268,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
                                 account_balance = 0
                                 account_balance_info = client.futures_account_balance()
                                 for item in account_balance_info:
-                                    if item['asset'] == 'USDT':
+                                    if item['asset'] == 'BUSD':
                                         account_balance = float(item['balance'])
                                         break
                             elif order['symbol'] == active_trades[i].symbol and order['orderId'] == \
@@ -278,7 +279,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
                                 account_balance = 0
                                 account_balance_info = client.futures_account_balance()
                                 for item in account_balance_info:
-                                    if item['asset'] == 'USDT':
+                                    if item['asset'] == 'BUSD':
                                         account_balance = float(item['balance'])
                                         break
                         if pop_flag:
@@ -292,7 +293,7 @@ def Check_for_signals(pipe: Pipe, leverage: int, order_Size: float, buffer: str,
                 account_balance = 0
                 account_balance_info = client.futures_account_balance()
                 for item in account_balance_info:
-                    if item['asset'] == 'USDT':
+                    if item['asset'] == 'BUSD':
                         account_balance = float(item['balance'])
                         break
                 i = 0
@@ -344,7 +345,7 @@ def run_bot(API_KEY, API_SECRET, leverage, order_Size, buffer, Interval, Max_Num
     if Trade_All_Coins:
         x = client.futures_exchange_info()['symbols']
         symbol = [y['symbol'] for y in x if
-                  (y['status'] == 'TRADING' and 'USDT' in y['symbol'] and not '_' in y['symbol'])]
+                  (y['status'] == 'TRADING' and 'BUSD' in y['symbol'] and not '_' in y['symbol'])]
 
     twm = ThreadedWebsocketManager(api_key=API_KEY, api_secret=API_SECRET)
     twm.start()  ##start manager
@@ -428,7 +429,7 @@ if __name__ == '__main__':
 
     if Trade_All_Coins:
         x = client.futures_exchange_info()['symbols']
-        symbol = [y['symbol'] for y in x if (y['status'] == 'TRADING' and 'USDT' in y['symbol'] and not '_' in y['symbol'])]
+        symbol = [y['symbol'] for y in x if (y['status'] == 'TRADING' and 'BUSD' in y['symbol'] and not '_' in y['symbol'])]
 
     pp = PrettyPrinter()  ##for printing json text cleanly (inspect binance API call returns)
     twm = ThreadedWebsocketManager(api_key=API_KEY, api_secret=API_SECRET)
